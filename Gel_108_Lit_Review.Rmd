@@ -1,0 +1,19 @@
+---
+title: "Gel_108_Lit_Review"
+author: "Laurine Cabiling"
+date: "2023-05-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+```{r}
+climate_91_to_20 <- readr::read_csv("data/pr_climatology_annual-monthly_cru_1991-2020_BLZ.csv")
+climate_91_to_20
+```
+
