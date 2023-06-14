@@ -10,10 +10,122 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-library(tidyverse)
+#install.packages("maps")
+library(maps)
 ```
 ```{r}
-climate_91_to_20 <- readr::read_csv("data/pr_climatology_annual-monthly_cru_1991-2020_BLZ.csv")
-climate_91_to_20
+#install.packages("janitor")
+library("janitor")
 ```
+```{r}
+#install.packages("naniar")
+library("naniar")
+```
+
+```{r}
+library("ggplot2")
+library("RColorBrewer")
+```
+```{r}
+#install.packages("paletteer")
+library("paletteer")
+```
+```{r}
+#install.packages("ggmap")
+library("ggmap")
+```
+```{r}
+#install.packages("maptools")
+library("maptools")
+```
+```{r}
+library("tidyverse")
+```
+```{r}
+citation("ggmap")
+```
+```{r}
+crop_prod <- readr::read_csv("data/crop_production.csv") %>% clean_names()
+crop_prod
+```
+
+```{r}
+mapdata <- map_data("world")
+view(mapdata)
+```
+```{r}
+list_loc <- crop_prod %>% 
+  count(location)
+```
+```{r}
+mapdata <- rename(mapdata, location = "region")
+mapdata
+```
+```{r}
+view(list_loc)
+```
+
+```{r}
+crop_prod_new <- crop_prod %>% 
+      mutate(location = case_when(location == "ARG" ~ "Argentina",
+                           location == "AUS" ~ "Australia",
+                           location == "BGD" ~ "Bangladesh", 
+                           location == "BRA" ~ "Brazil",
+                           #location == "BRICS" ~ "Argentina", 
+                           location == "CAN" ~ "Canada",
+                           location == "CHE" ~ "Switzerland",
+                           location == "CHL" ~ "Chile",
+                           location == "CHN" ~ "China",
+                           location == "COL" ~ "Colombia",
+                           location == "DZA" ~ "Algeria",
+                           location == "EGY" ~ "Egypt",
+                           location == "ETH" ~ "Ethiopia", 
+                           #location == "EU28" ~ "Argentina",
+                           location == "GHA" ~ "Ghana", 
+                           location == "HTI" ~ "Haiti",
+                           location == "IDN" ~ "Indonesia",
+                           location == "IND" ~ "India", 
+                           location == "IRN" ~ "Iran",
+                           location == "ISR" ~ "Israel", 
+                           location == "JPN" ~ "Japan",
+                           location == "KAZ" ~ "Kazakhstan",
+                           location == "KOR" ~ "South Korea", 
+                           location == "MEX" ~ "Mexico",
+                           location == "MOZ" ~ "Mozambique",
+                           location == "MYS" ~ "Malaysia",
+                           location == "NGA" ~ "Nigeria",
+                           location == "NOR" ~ "Norway",
+                           location == "NZL" ~ "New Zealand",
+                           #location == "OECD" ~ "Argentina",
+                           location == "PAK" ~ "Pakistan",
+                           location == "PER" ~ "Peru",
+                           location == "PHL" ~ "Philippines",
+                           location == "PRY" ~ "Paraguay",
+                           location == "RUS" ~ "Russia", 
+                           location == "SAU" ~ "Saudi Arabia",
+                           location == "SDN" ~ "Sudan",
+                           #location == "SSA" ~ "Argentina",
+                           location == "THA" ~ "Thailand", 
+                           location == "TUR" ~ "Turkey",
+                           location == "TZA" ~ "Tanzania", 
+                           location == "UKR" ~ "Ukraine",
+                           location == "URY" ~ "Uruguay",
+                           location == "USA" ~ "USA",
+                           location == "VNM" ~ "Vietnam",
+                           #location == "WLD" ~ "Argentina",
+                           location == "ZAF" ~ "South Africa",
+                           location == "ZMB" ~ "Zambia"))
+crop_prod_new
+```
+
+```{r}
+mapdata_new <- left_join(mapdata, crop_prod_new, by = "location")
+```
+```{r}
+map1 <- mapdata_new %>% 
+  filter()
+  ggplot(aes(x=long, y=lat, group = group))+
+  geom_polygon(aes(fill=)
+```
+
 
